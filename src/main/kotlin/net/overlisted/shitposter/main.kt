@@ -46,9 +46,9 @@ suspend fun main() {
     }
 
     commands {
-      command("sp interval") {
-
-        reply("OK")
+      prefix = "/sp "
+      command("interval") {
+        reply("no-op")
       }
     }
   }
