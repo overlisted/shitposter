@@ -16,6 +16,7 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib"
 
   implementation "com.jessecorbett:diskord:1.8.0"
+  implementation "org.slf4j:slf4j-simple:2.0.0-alpha1"
 }
 
 application {
