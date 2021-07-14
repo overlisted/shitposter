@@ -60,12 +60,18 @@ suspend fun main() {
 
         if(id != null && cooldown != null) {
           sp.setCooldown(id, cooldown)
+
+          it.respond("Set the cooldown to $cooldown milliseconds (${cooldown / 1000} seconds))!")
         }
       }
       command("stop") {
         if(it.author.id == CREATOR_ID) {
+          it.respond("Shutting down!")
+
           sp.saveConfig()
           bot.shutdown()
+        } else {
+          it.respond("Only the creator of the bot can do this")
         }
       }
     }
