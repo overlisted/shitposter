@@ -71,7 +71,7 @@ suspend fun main() {
                     } else {
                         sp.setCooldown(id, cooldown)
 
-                        it.respond("Set the cooldown to $cooldown milliseconds (${cooldown / 1000} seconds))!")
+                        it.respond("Set the cooldown to $cooldown milliseconds (${cooldown / 1000} seconds)!")
                     }
                 }
             }
