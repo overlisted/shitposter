@@ -28,6 +28,12 @@ suspend fun main() {
         }
       }
 
+      onGuildMemberRemove {
+        if(it.user.id == BOT_ID) {
+          sp.removeGuild(it.guildId)
+        }
+      }
+
       onMessageCreate {
         val id = it.guildId
 

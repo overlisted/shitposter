@@ -46,6 +46,10 @@ class Shitposter {
         config[guild] = defaultConfig
     }
 
+    fun removeGuild(guild: String) {
+        config.remove(guild)
+    }
+
     fun getConfig(guild: String) = config[guild]
 
     fun setCooldown(guild: String, cooldown: Int) {
