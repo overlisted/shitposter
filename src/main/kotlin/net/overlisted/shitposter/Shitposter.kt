@@ -1,11 +1,8 @@
 package net.overlisted.shitposter
 
 import com.jessecorbett.diskord.api.channel.ChannelClient
-import com.jessecorbett.diskord.bot.*
 import com.jessecorbett.diskord.util.sendMessage
 import java.io.File
-import readOrMakeFile
-import readResource
 
 data class GuildConfig(var cooldown: Int)
 

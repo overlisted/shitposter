@@ -2,7 +2,6 @@ package net.overlisted.shitposter
 
 import com.jessecorbett.diskord.bot.*
 import kotlin.concurrent.timer
-import readResource
 
 const val BOT_ID = "786739224643895326"
 val DEFAULT_CONFIG = GuildConfig(10000)

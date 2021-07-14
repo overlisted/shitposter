@@ -1,4 +1,5 @@
-import net.overlisted.shitposter.Shitposter
+package net.overlisted.shitposter
+
 import java.io.File
 
 fun readResource(filename: String) = Shitposter::class.java.classLoader.getResource(filename)?.readText()
