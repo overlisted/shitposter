@@ -126,6 +126,11 @@ suspend fun main() {
           sp.setCooldown(id, cooldown)
         }
       }
+      command("stop") {
+        if(it.author.id == CREATOR_ID) {
+          bot.shutdown()
+        }
+      }
     }
   }
 }
