@@ -1,9 +1,7 @@
 package net.overlisted.shitposter
 
-import com.jessecorbett.diskord.api.rest.client.ChannelClient
-import com.jessecorbett.diskord.dsl.bot
-import com.jessecorbett.diskord.dsl.command
-import com.jessecorbett.diskord.dsl.commands
+import com.jessecorbett.diskord.api.channel.ChannelClient
+import com.jessecorbett.diskord.bot.*
 import com.jessecorbett.diskord.util.sendMessage
 
 fun readResource(filename: String) = Shitposter::class.java.classLoader.getResource(filename)?.readText()
@@ -37,18 +35,19 @@ suspend fun main() {
     val sp = Shitposter()
 
     var lastTime = System.currentTimeMillis()
-    messageCreated {
-      if(System.currentTimeMillis() - 1000 > lastTime) {
-        sp.doShit(it.channel)
+    events {
+      onMessageCreate {
+        if (System.currentTimeMillis() - 1000 > lastTime) {
+          sp.doShit(it.channel)
 
-        lastTime = System.currentTimeMillis()
+          lastTime = System.currentTimeMillis()
+        }
       }
     }
 
-    commands {
-      prefix = "/sp "
+    classicCommands(commandPrefix = "/sp ") {
       command("interval") {
-        reply("no-op")
+        it.respond("no-op")
       }
     }
   }

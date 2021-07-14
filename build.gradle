@@ -1,7 +1,7 @@
 plugins {
   id "java"
   id "application"
-  id "org.jetbrains.kotlin.jvm" version "1.4.20"
+  id "org.jetbrains.kotlin.jvm" version "1.5.21"
 }
 
 group "net.overlisted"
@@ -9,16 +9,15 @@ version "0.1"
 
 repositories {
   mavenCentral()
-  jcenter()
 }
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib"
 
-  implementation "com.jessecorbett:diskord:1.8.0"
+  implementation "com.jessecorbett:diskord-bot:2.0.2"
   implementation "org.slf4j:slf4j-simple:2.0.0-alpha1"
 }
 
 application {
-  mainClassName = "net.overlisted.shitposter.MainKt"
+  getMainClass().set("net.overlisted.shitposter.MainKt")
 }
