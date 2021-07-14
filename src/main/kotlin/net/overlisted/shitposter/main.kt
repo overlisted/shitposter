@@ -8,6 +8,7 @@ const val BOT_ID = "786739224643895326"
 val DEFAULT_CONFIG = GuildConfig(10000)
 const val CREATOR_ID = "239386885766512650"
 const val AUTOSAVE_INTERVAL = 60000
+const val MIN_COOLDOWN = 500
 
 suspend fun main() {
     val token = readResource("token.txt") ?: return
@@ -65,9 +66,13 @@ suspend fun main() {
                 val id = it.guildId
 
                 if (id != null && cooldown != null) {
-                    sp.setCooldown(id, cooldown)
+                    if (cooldown < MIN_COOLDOWN) {
+                        it.respond("Cooldown can't be less than $MIN_COOLDOWN milliseconds! (or else you will be able to get me rate limited)")
+                    } else {
+                        sp.setCooldown(id, cooldown)
 
-                    it.respond("Set the cooldown to $cooldown milliseconds (${cooldown / 1000} seconds))!")
+                        it.respond("Set the cooldown to $cooldown milliseconds (${cooldown / 1000} seconds))!")
+                    }
                 }
             }
             command("stop") {
