@@ -4,7 +4,7 @@ import com.jessecorbett.diskord.api.channel.ChannelClient
 import com.jessecorbett.diskord.util.sendMessage
 import java.io.File
 
-data class GuildConfig(var cooldown: Int)
+data class GuildConfig(var cooldown: Int, var allowedChannels: MutableSet<String>)
 
 class Shitposter {
     private val adjectives: List<String>
@@ -27,14 +27,14 @@ class Shitposter {
         text.lines().filter { it.isNotEmpty() }.associate {
             val parts = it.split("/")
 
-            if (parts.size != 2) throw java.lang.Exception("Bad syntax of config.txt")
+            if (parts.size != 3) throw java.lang.Exception("Bad syntax of config.txt")
 
-            Pair(parts[0], GuildConfig(parts[1].toInt()))
+            Pair(parts[0], GuildConfig(parts[1].toInt(), if (parts[2].isNotEmpty()) parts[2].split(",").toMutableSet() else mutableSetOf()))
         }.toMutableMap()
 
     private fun serializeConfig(config: Map<String, GuildConfig>): String =
         config.map {
-            "${it.key}/${it.value.cooldown}"
+            "${it.key}/${it.value.cooldown}/${it.value.allowedChannels.joinToString(",")}"
         }.joinToString("\n")
 
     fun saveConfig() = File("config.txt").writeText(serializeConfig(config))
@@ -45,6 +45,14 @@ class Shitposter {
 
     fun removeGuild(guild: String) {
         config.remove(guild)
+    }
+
+    fun allowChannel(guild: String, channel: String) {
+        config[guild]?.allowedChannels?.add(channel)
+    }
+
+    fun disallowChannel(guild: String, channel: String) {
+        config[guild]?.allowedChannels?.remove(channel)
     }
 
     fun getConfig(guild: String) = config[guild]

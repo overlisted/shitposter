@@ -4,7 +4,7 @@ import com.jessecorbett.diskord.bot.*
 import kotlin.concurrent.timer
 
 const val BOT_ID = "786739224643895326"
-val DEFAULT_CONFIG = GuildConfig(10000)
+val DEFAULT_CONFIG = GuildConfig(10000, mutableSetOf())
 const val CREATOR_ID = "239386885766512650"
 const val AUTOSAVE_INTERVAL = 60000
 const val MIN_COOLDOWN = 500
@@ -50,6 +50,10 @@ suspend fun main() {
                         config = sp.getConfig(id)!!
                     }
 
+                    if (!config.allowedChannels.contains(it.channelId)) {
+                        return@onMessageCreate
+                    }
+
                     if (!lastTimes.containsKey(id) || System.currentTimeMillis() - config.cooldown > lastTimes[id]!!) {
                         sp.doShit(it.channel)
 
@@ -82,6 +86,37 @@ suspend fun main() {
                     bot.shutdown()
                 } else {
                     it.respond("Only the creator of the bot can do this")
+                }
+            }
+            command("allow") {
+                val channel = it.content.split(" ")[2]
+                val id = it.guildId
+
+                if (id != null) {
+                    sp.allowChannel(id, channel)
+                }
+            }
+            command("disallow") {
+                val channel = it.content.split(" ")[2]
+                val id = it.guildId
+
+                if (id != null) {
+                    sp.disallowChannel(id, channel)
+                }
+            }
+
+            command("allowhere") {
+                val id = it.guildId
+
+                if (id != null) {
+                    sp.allowChannel(id, it.channelId)
+                }
+            }
+            command("disallowhere") {
+                val id = it.guildId
+
+                if (id != null) {
+                    sp.disallowChannel(id, it.channelId)
                 }
             }
         }
