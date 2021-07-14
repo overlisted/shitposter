@@ -20,7 +20,7 @@ class Shitposter {
 
         config = parseConfig(readOrMakeFile("config.txt"))
 
-        if(adjectivesTxt != null && nounsTxt != null) {
+        if (adjectivesTxt != null && nounsTxt != null) {
             adjectives = adjectivesTxt.split("\n")
             nouns = nounsTxt.split("\n")
         } else throw Exception("Can't load the dictionaries!")
